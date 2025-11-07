@@ -20,6 +20,7 @@ addBookToLibrary('Lord of rings', 'Rocky Balboa', 1780, 983);
 addBookToLibrary('House of dragon', 'Thompson Momo', 1370, 723);
 addBookToLibrary('Money heist', 'Thomas Kirk', 1860, 623);
 addBookToLibrary('Prison break', 'Albus Dumbledor', 2000, 183);
+addBookToLibrary('The way of the superior man', 'David Deida', 1980, 289);
 
 console.table(myLibrary);
 
@@ -29,6 +30,7 @@ const bookContainer = document.querySelector(".book-container");
 
 function generateArticle(obj){
   const {title, author, year, pages, uid} = obj;
+
   const article = document.createElement('article');
   article.id = uid;
   article.classList.add('books');
@@ -68,3 +70,18 @@ function generateArticle(obj){
 }
 
 myLibrary.forEach(book => generateArticle(book));
+
+//add-btn 
+const addBtn = document.querySelector('.add-btn');
+const dialog = document.querySelector("dialog");
+const closeDialog = document.querySelector(".dialog-close");
+const formSubmitBtn = document.querySelector(".form-submit");
+
+addBtn.addEventListener("click", (e)=>{
+  dialog.showModal();
+});
+
+closeDialog.addEventListener("click", (e)=>{
+  e.preventDefault();
+  dialog.close();
+})

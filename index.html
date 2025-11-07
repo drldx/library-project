@@ -10,8 +10,39 @@
   <div class="container">
     <header class="header">
       <h1>Library</h1>
-      <button class="add-btn">Add new</button>
+
+      <dialog closedby="any">
+
+        <form class="add-book-form" method="dialog">
+          <h2>Add a new book</h2>
+          <label for="title">Title:</label>
+          <input type="text" id="title" required>
+          <label for="author">Author:</label>
+          <input type="text" id="author" required>
+          <label for="year">Year:</label>
+          <input type="number" id="year" min="1000" max="2025" required>
+          <label for="pages">Pages:</label>
+          <input type="number" id="pages" min="100" max="5000" required>
+
+          <fieldset>
+            <legend>Read Status:</legend>
+            <input type="radio" id="read" name="read" value="read">
+            <label for="read">Read</label>
+            <input type="radio" id="not-read" name="read" value="not-read" checked>
+            <label for="not-read">Not read</label>
+          </fieldset>
+
+          <div class="form-btns">
+            <button class="dialog-close">Close</button>
+            <button type="reset">Clear</button>
+            <button class="form-submit" type="submit">Add</button>
+          </div>
+
+        </form>
+      </dialog>
+      <button class="add-btn">New Book</button>
     </header>
+
     <main class="book-container">
 
     </main>
