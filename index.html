@@ -24,13 +24,11 @@
           <label for="pages">Pages:</label>
           <input type="number" id="pages" min="100" max="5000" required>
 
-          <fieldset>
-            <legend>Read Status:</legend>
-            <input type="radio" id="read" name="read" value="read">
-            <label for="read">Read</label>
-            <input type="radio" id="not-read" name="read" value="not-read" checked>
-            <label for="not-read">Not read</label>
-          </fieldset>
+          <select name="read-status" id="read-status" required>
+            <option value="" disabled selected>Read Status</option>
+            <option value="read">Read</option>
+            <option value="not-read">Not Read</option>
+          </select>
 
           <div class="form-btns">
             <button class="dialog-close">Close</button>

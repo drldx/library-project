@@ -8,6 +8,10 @@ function Book(title, author, year, pages, uid) {
   this.uid = uid;
 }
 
+function renderDisplay(){
+  myLibrary.forEach(book => generateArticle(book));
+}
+
 function addBookToLibrary(title, author, year, pages) {
   const uid = crypto.randomUUID();
   const book = new Book(title, author, year, pages, uid);
@@ -21,8 +25,6 @@ addBookToLibrary('House of dragon', 'Thompson Momo', 1370, 723);
 addBookToLibrary('Money heist', 'Thomas Kirk', 1860, 623);
 addBookToLibrary('Prison break', 'Albus Dumbledor', 2000, 183);
 addBookToLibrary('The way of the superior man', 'David Deida', 1980, 289);
-
-console.table(myLibrary);
 
 const bookContainer = document.querySelector(".book-container");
 
@@ -69,7 +71,7 @@ function generateArticle(obj){
   bookContainer.appendChild(article);
 }
 
-myLibrary.forEach(book => generateArticle(book));
+renderDisplay();
 
 //add-btn 
 const addBtn = document.querySelector('.add-btn');
@@ -84,4 +86,24 @@ addBtn.addEventListener("click", (e)=>{
 closeDialog.addEventListener("click", (e)=>{
   e.preventDefault();
   dialog.close();
+})
+//
+
+function collectData() {
+  const title = document.querySelector("#title").value;
+  const author = document.querySelector("#author").value;
+  const year = document.querySelector("#year").value;
+  const pages = document.querySelector("#pages").value;
+  const readStatus = document.querySelector("#read-status").value;
+  if(!title || !author || !year || !pages || !readStatus){
+    console.log("nothing");
+    return;
+  }
+  addBookToLibrary(title, author, year, pages);
+  bookContainer.textContent = '';
+  renderDisplay();
+}
+
+formSubmitBtn.addEventListener("click", (e)=>{
+  collectData();
 })
