@@ -1,64 +1,74 @@
 const myLibrary = [];
 
-function Book(title, author, year, pages, uid) {
+function Book(title, author, year, pages, uid, status) {
   this.title = title;
   this.author = author;
   this.year = year;
   this.pages = pages; 
   this.uid = uid;
+  this.status = status;
+}
+
+Book.prototype.toggleRead = function(){
+  console.log("befor:" + this.status);
+  if (this.status === "not read") {
+    this.status = "read";
+  }else {
+    this.status = "not read";
+  }
+  bookContainer.textContent = '';
+  renderDisplay();
+  //return this;
 }
 
 function renderDisplay(){
   myLibrary.forEach(book => generateArticle(book));
 }
 
-function addBookToLibrary(title, author, year, pages) {
+function addBookToLibrary(title, author, year, pages, status) {
   const uid = crypto.randomUUID();
-  const book = new Book(title, author, year, pages, uid);
+  const book = new Book(title, author, year, pages, uid, status);
   myLibrary.push(book);
 }
 
-addBookToLibrary('Game of thrones', 'J.J Martin', 1980, 523);
-addBookToLibrary('Harry potter', 'J.K Rownling', 1880, 223);
-addBookToLibrary('Lord of rings', 'Rocky Balboa', 1780, 983);
-addBookToLibrary('House of dragon', 'Thompson Momo', 1370, 723);
-addBookToLibrary('Money heist', 'Thomas Kirk', 1860, 623);
-addBookToLibrary('Prison break', 'Albus Dumbledor', 2000, 183);
-addBookToLibrary('The way of the superior man', 'David Deida', 1980, 289);
+addBookToLibrary("Fragments of Tomorrow", "Devraj Menon", 2021, 288, "read");
+addBookToLibrary("The Glass Orchard", "Elise Marlowe", 1998, 356, "not read");
+addBookToLibrary("Wires and Shadows", "Kaito Ishida", 2030, 472, "not read");
+addBookToLibrary("Beneath the Northern Sky", "Jonas Eriksen", 2007, 523, "read");
+addBookToLibrary("A Brief History of Dust", "Mirella Vasquez", 2019, 341, "not read");
+addBookToLibrary('The way of the superior man', 'David Deida', 1980, 289, "read");
+addBookToLibrary('Harry potter', 'J.K Rowling', 1998, 2423, "read");
+addBookToLibrary('Lord of rings', 'Rocky Balboa', 1780, 983, "not read");
 
 const bookContainer = document.querySelector(".book-container");
 
 //myLibrary.forEach() loop through it and create article for each
 
 function generateArticle(obj){
-  const {title, author, year, pages, uid} = obj;
+  const {title, author, year, pages, uid, status} = obj;
 
-  const article = document.createElement('article');
+  function newElem(elem, className, text='', prefix='') {
+    const child = document.createElement(`${elem}`);
+    child.classList.add(`${className}`);
+    child.textContent = `${prefix} ${text}`;
+    return child;
+  }
+
+  const article = newElem("article", "books");
   article.id = uid;
-  article.classList.add('books');
-  const header = document.createElement('h1');
-  header.classList.add("title");
-  header.textContent = title;
-  const writer = document.createElement("p");
-  writer.classList.add("author");
-  writer.textContent = `Author: ${author}`;
-  const bookYear = document.createElement("p");
-  bookYear.classList.add("year");
-  bookYear.textContent = `Year: ${year}`;
-  const bookPages = document.createElement('p');
-  bookPages.classList.add("pages");
-  bookPages.textContent = `Pages: ${pages}`; 
 
-  const btnDiv = document.createElement('div');
-  btnDiv.classList.add("book-btn");
+  const header = newElem("h1", "title", title);
+  const writer = newElem("p", "author", author, "Author:")
+  const bookYear = newElem("p", "year", year, "Year:");
+  const bookPages = newElem("p", "pages", pages, "Pages:");
+  const bookStatus = newElem("p", "status", status, "Status:");
+  const btnDiv = newElem("div", "book-btn");
 
-  const readBtn = document.createElement('button');
-  readBtn.classList.add("readStatus");
-  readBtn.textContent = "Read";
-  const delBtn = document.createElement('button');
-  delBtn.classList.add("del-btn");
+  const readBtn = newElem("button", (status === "read" ? "read" : "not-read"));
+  readBtn.classList.add("toggle-status");
+  readBtn.dataset.uid = uid;
+  const delBtn = newElem("button", "del-btn", "Delete");
   delBtn.id = uid;
-  delBtn.textContent = "Delete";
   
   btnDiv.appendChild(readBtn);
   btnDiv.appendChild(delBtn);
@@ -67,6 +77,7 @@ function generateArticle(obj){
   article.appendChild(writer);
   article.appendChild(bookYear);
   article.appendChild(bookPages);
+  article.appendChild(bookStatus);
   article.appendChild(btnDiv);
 
   bookContainer.appendChild(article);
@@ -100,7 +111,7 @@ function collectData() {
     console.log("nothing");
     return;
   }
-  addBookToLibrary(title, author, year, pages);
+  addBookToLibrary(title, author, year, pages, readStatus);
   bookContainer.textContent = '';
   renderDisplay();
 }
@@ -113,6 +124,7 @@ formSubmitBtn.addEventListener("click", (e)=>{
 const deleteBtn = document.querySelector(".del-btn");
 
 bookContainer.addEventListener("click", (e)=>{
+  //delete button
   if(e.target.classList.contains("del-btn")){
     //write the function to remove the selected delbtn;
     const id = e.target.id;
@@ -130,4 +142,25 @@ bookContainer.addEventListener("click", (e)=>{
       }
     }
   }
+
+  //read button 
+  if(e.target.classList.contains("toggle-status")){
+    const id = e.target.dataset.uid;
+
+    for(obj of myLibrary){
+      if(obj.uid === id){
+        const objIndex = myLibrary.indexOf(obj);
+        const newObj = myLibrary[objIndex].toggleRead();
+        //myLibrary.splice(objIndex, 1, newObj);
+      }
+    }
+  }
 });
+
+//note for tomorrow
+
+//
+// just use required prototype as it is, and use the read or unread proprely with this, and loop through obj like in addEventListener
+// to check the status fo read or unread and with that result chooose the class and toggle or properly , that simple!
+//
+//

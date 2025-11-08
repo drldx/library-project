@@ -44,6 +44,7 @@ article {
   background-color: white;
   border-radius: 12px;
   box-shadow: 3px 7px 10px #a4e1a6;
+  grid-template-rows: 1fr auto;
 }
 
 dialog[open]{
@@ -79,9 +80,23 @@ dialog form {
   color: white;
   cursor: pointer;
 }
-.readStatus {
+.read{
   background-color: #a4e1a6;
+  background: url(icons/book-open.svg);
+  background-repeat: no-repeat;
 }
+.not-read{
+  background-color: green;
+  background: url(icons/book-one.svg);
+  background-repeat: no-repeat;
+}
+.status{
+  background-color: #a5e9923b;
+  border-radius: 5px;
+  padding: 5px;
+  color: #000000;
+}
+
 .del-btn{
-  background-color: #ff3a3aa3;
+  background-color: #ff00009e;
 }
