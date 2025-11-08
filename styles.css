@@ -6,7 +6,7 @@
 
 body{
   color: #000000;
-  background-color: #e9e8e8; 
+  background-color: #fffde9; 
   font-family: monospace;
 }
 .container{
@@ -23,6 +23,9 @@ body{
   padding: 0px 25px;
   border-radius: 10px;
   border: none;
+  color: white;
+  font-size: 1rem;
+  font-family: inherit;
   background-color: #5df485;
   cursor: pointer;
 }
@@ -31,7 +34,6 @@ body{
   padding: 25px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 15px;
-  border: 2px solid #ffffff;
 }
 
 article {
@@ -64,4 +66,22 @@ dialog form {
   border-radius: 5px;
   height: 2rem;
   font-size: 1rem;
+}
+.books .book-btn {
+  display: flex;
+  gap: 10px;
+}
+.book-btn button{
+  border: none;
+  font-size: 1rem;
+  padding: 5px 15px;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+.readStatus {
+  background-color: #a4e1a6;
+}
+.del-btn{
+  background-color: #ff3a3aa3;
 }

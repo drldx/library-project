@@ -57,6 +57,7 @@ function generateArticle(obj){
   readBtn.textContent = "Read";
   const delBtn = document.createElement('button');
   delBtn.classList.add("del-btn");
+  delBtn.id = uid;
   delBtn.textContent = "Delete";
   
   btnDiv.appendChild(readBtn);
@@ -106,4 +107,27 @@ function collectData() {
 
 formSubmitBtn.addEventListener("click", (e)=>{
   collectData();
-})
+  //should clear form from here
+});
+
+const deleteBtn = document.querySelector(".del-btn");
+
+bookContainer.addEventListener("click", (e)=>{
+  if(e.target.classList.contains("del-btn")){
+    //write the function to remove the selected delbtn;
+    const id = e.target.id;
+    const selectedNode = document.getElementById(`${id}`);
+    selectedNode.remove();
+    // bookContainer.removeChild(selectedNode);
+
+    //loop array objects to find matching uid. 
+    // then remove it from the array
+    for(obj of myLibrary){
+      if(obj.uid === id){
+        const targetObj = myLibrary.indexOf(obj);
+        myLibrary.splice(targetObj, 1);
+        console.log(myLibrary);
+      }
+    }
+  }
+});
