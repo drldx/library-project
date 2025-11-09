@@ -9,8 +9,7 @@ function Book(title, author, year, pages, uid, status) {
   this.status = status;
 }
 
-Book.prototype.toggleRead = function(){
-  console.log("befor:" + this.status);
+Book.prototype.isRead = function(){
   if (this.status === "not read") {
     this.status = "read";
   }else {
@@ -38,11 +37,8 @@ addBookToLibrary("Beneath the Northern Sky", "Jonas Eriksen", 2007, 523, "read")
 addBookToLibrary("A Brief History of Dust", "Mirella Vasquez", 2019, 341, "not read");
 addBookToLibrary('The way of the superior man', 'David Deida', 1980, 289, "read");
 addBookToLibrary('Harry potter', 'J.K Rowling', 1998, 2423, "read");
-addBookToLibrary('Lord of rings', 'Rocky Balboa', 1780, 983, "not read");
 
 const bookContainer = document.querySelector(".book-container");
-
-//myLibrary.forEach() loop through it and create article for each
 
 function generateArticle(obj){
   const {title, author, year, pages, uid, status} = obj;
@@ -126,14 +122,11 @@ const deleteBtn = document.querySelector(".del-btn");
 bookContainer.addEventListener("click", (e)=>{
   //delete button
   if(e.target.classList.contains("del-btn")){
-    //write the function to remove the selected delbtn;
+
     const id = e.target.id;
     const selectedNode = document.getElementById(`${id}`);
     selectedNode.remove();
-    // bookContainer.removeChild(selectedNode);
 
-    //loop array objects to find matching uid. 
-    // then remove it from the array
     for(obj of myLibrary){
       if(obj.uid === id){
         const targetObj = myLibrary.indexOf(obj);
@@ -150,17 +143,9 @@ bookContainer.addEventListener("click", (e)=>{
     for(obj of myLibrary){
       if(obj.uid === id){
         const objIndex = myLibrary.indexOf(obj);
-        const newObj = myLibrary[objIndex].toggleRead();
-        //myLibrary.splice(objIndex, 1, newObj);
+        const newObj = myLibrary[objIndex].isRead();
       }
     }
   }
 });
 
-//note for tomorrow
-
-//
-// just use required prototype as it is, and use the read or unread proprely with this, and loop through obj like in addEventListener
-// to check the status fo read or unread and with that result chooose the class and toggle or properly , that simple!
-//
-//
