@@ -1,23 +1,25 @@
 const myLibrary = [];
 
-function Book(title, author, year, pages, uid, status) {
-  this.title = title;
-  this.author = author;
-  this.year = year;
-  this.pages = pages; 
-  this.uid = uid;
-  this.status = status;
-}
-
-Book.prototype.isRead = function(){
-  if (this.status === "not read") {
-    this.status = "read";
-  }else {
-    this.status = "not read";
+class Book {
+  constructor(title, author, year, pages, uid, status){
+    this.title = title;
+    this.author = author;
+    this.year = year;
+    this.pages = pages; 
+    this.uid = uid;
+    this.status = status;
   }
-  bookContainer.textContent = '';
-  renderDisplay();
-  //return this;
+
+  isRead(){
+    if (this.status === "not read") {
+      this.status = "read";
+    }else {
+      this.status = "not read";
+    }
+    bookContainer.textContent = '';
+    renderDisplay();
+    //return this;
+  }
 }
 
 function renderDisplay(){
