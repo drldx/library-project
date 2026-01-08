@@ -106,7 +106,6 @@ function collectData() {
   const pages = document.querySelector("#pages").value;
   const readStatus = document.querySelector("#read-status").value;
   if(!title || !author || !year || !pages || !readStatus){
-    console.log("nothing");
     return;
   }
   addBookToLibrary(title, author, year, pages, readStatus);
@@ -115,8 +114,17 @@ function collectData() {
 }
 
 formSubmitBtn.addEventListener("click", (e)=>{
+  //custom form validation message with javascript
+  // new feature here.
+  //
+  const author = document.getElementById("author");
+  if(author.validity.valueMissing){
+    author.setCustomValidity("The author name must be filled!");
+  } else {
+    author.setCustomValidity("");
+  }
+
   collectData();
-  //should clear form from here
 });
 
 const deleteBtn = document.querySelector(".del-btn");
